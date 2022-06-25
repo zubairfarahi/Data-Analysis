@@ -1,4 +1,7 @@
 
+import imp
+
+
 str1 = "string1"
 str2 = "I love this World"
 str3 = "I like this number "+'2'
@@ -65,8 +68,43 @@ def grid_travel_dp(n, m, memo={}):
     memo[key] = grid_travel_dp(n - 1, m, memo) + grid_travel_dp(n, m - 1, memo)
     return memo[key]
 
+
+# def convert()
+# def solve(names):
+#   mapped = []
+#   for raw in names:
+#     name, num = raw.split()
+#     num = convert(num) # this is from leetcode
+#     mapped.append((name, num, raw))
+
+#   names.sort(lambda x: [x[0], x[1]])
+#   return list(map(names, lambda x: x[2]))
+
+from  collections import Counter
+
+def roman_to_int(string):
+                        
+    result, mapped = 0, {'M': 1000,'D': 500 ,'C': 100,'L': 50,'X': 10,'V': 5,'I': 1}
+    for i, val in Counter(string).items():
+        result += mapped[i]*val
+    for i in ["IV", "IX", "XL", "XC", "CD", "CM"]:
+        print(string.count(i))
+        print(mapped[i[0]])
+        result -= string.count(i)*2*mapped[i[0]]        
+            
+    return result
+def sortRoman(names):
+    result = []
+    mapped = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
+    for name in names:
+        n, num = name.split()
+        num = roman_to_int(num)
+        result.append((n,num,name))
+    result.sort(key=lambda x: [x[0], x[1]])
+    return list(map(lambda x: x[2], result))
+
+
+
 if __name__ == "__main__":
-    print(f"fib: {fibdp(50)}")
-    print(f"this: {foo(5)}")
-    print(f"is {grid_travel(2,3)}")
-    print(f"long grid: {grid_travel_dp(18,18)}")
+    names = ['Steven XL', 'Steven XVI', 'David IX', 'Mary XV', 'Mary XIII', 'Mary XX']
+    print(sortRoman(names))
